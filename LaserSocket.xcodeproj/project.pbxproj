@@ -1,0 +1,591 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5761897D2B76F2DF00B24CEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761897C2B76F2DF00B24CEF /* AppDelegate.swift */; };
+		5761897F2B76F2DF00B24CEF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761897E2B76F2DF00B24CEF /* ContentView.swift */; };
+		576189812B76F2E000B24CEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 576189802B76F2E000B24CEF /* Assets.xcassets */; };
+		576189842B76F2E000B24CEF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 576189832B76F2E000B24CEF /* Preview Assets.xcassets */; };
+		5761898E2B76F2E000B24CEF /* LaserSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761898D2B76F2E000B24CEF /* LaserSocketTests.swift */; };
+		576189982B76F2E000B24CEF /* LaserSocketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576189972B76F2E000B24CEF /* LaserSocketUITests.swift */; };
+		5761899A2B76F2E000B24CEF /* LaserSocketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576189992B76F2E000B24CEF /* LaserSocketUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5761898A2B76F2E000B24CEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 576189712B76F2DF00B24CEF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 576189782B76F2DF00B24CEF;
+			remoteInfo = LaserSocket;
+		};
+		576189942B76F2E000B24CEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 576189712B76F2DF00B24CEF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 576189782B76F2DF00B24CEF;
+			remoteInfo = LaserSocket;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		576189792B76F2DF00B24CEF /* LaserSocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaserSocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5761897C2B76F2DF00B24CEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5761897E2B76F2DF00B24CEF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		576189802B76F2E000B24CEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		576189832B76F2E000B24CEF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		576189892B76F2E000B24CEF /* LaserSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaserSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5761898D2B76F2E000B24CEF /* LaserSocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaserSocketTests.swift; sourceTree = "<group>"; };
+		576189932B76F2E000B24CEF /* LaserSocketUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaserSocketUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		576189972B76F2E000B24CEF /* LaserSocketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaserSocketUITests.swift; sourceTree = "<group>"; };
+		576189992B76F2E000B24CEF /* LaserSocketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaserSocketUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		576189762B76F2DF00B24CEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576189862B76F2E000B24CEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576189902B76F2E000B24CEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		576189702B76F2DF00B24CEF = {
+			isa = PBXGroup;
+			children = (
+				5761897B2B76F2DF00B24CEF /* LaserSocket */,
+				5761898C2B76F2E000B24CEF /* LaserSocketTests */,
+				576189962B76F2E000B24CEF /* LaserSocketUITests */,
+				5761897A2B76F2DF00B24CEF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5761897A2B76F2DF00B24CEF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				576189792B76F2DF00B24CEF /* LaserSocket.app */,
+				576189892B76F2E000B24CEF /* LaserSocketTests.xctest */,
+				576189932B76F2E000B24CEF /* LaserSocketUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5761897B2B76F2DF00B24CEF /* LaserSocket */ = {
+			isa = PBXGroup;
+			children = (
+				5761897C2B76F2DF00B24CEF /* AppDelegate.swift */,
+				5761897E2B76F2DF00B24CEF /* ContentView.swift */,
+				576189802B76F2E000B24CEF /* Assets.xcassets */,
+				576189822B76F2E000B24CEF /* Preview Content */,
+			);
+			path = LaserSocket;
+			sourceTree = "<group>";
+		};
+		576189822B76F2E000B24CEF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				576189832B76F2E000B24CEF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5761898C2B76F2E000B24CEF /* LaserSocketTests */ = {
+			isa = PBXGroup;
+			children = (
+				5761898D2B76F2E000B24CEF /* LaserSocketTests.swift */,
+			);
+			path = LaserSocketTests;
+			sourceTree = "<group>";
+		};
+		576189962B76F2E000B24CEF /* LaserSocketUITests */ = {
+			isa = PBXGroup;
+			children = (
+				576189972B76F2E000B24CEF /* LaserSocketUITests.swift */,
+				576189992B76F2E000B24CEF /* LaserSocketUITestsLaunchTests.swift */,
+			);
+			path = LaserSocketUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		576189782B76F2DF00B24CEF /* LaserSocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5761899D2B76F2E000B24CEF /* Build configuration list for PBXNativeTarget "LaserSocket" */;
+			buildPhases = (
+				576189752B76F2DF00B24CEF /* Sources */,
+				576189762B76F2DF00B24CEF /* Frameworks */,
+				576189772B76F2DF00B24CEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LaserSocket;
+			productName = LaserSocket;
+			productReference = 576189792B76F2DF00B24CEF /* LaserSocket.app */;
+			productType = "com.apple.product-type.application";
+		};
+		576189882B76F2E000B24CEF /* LaserSocketTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 576189A02B76F2E000B24CEF /* Build configuration list for PBXNativeTarget "LaserSocketTests" */;
+			buildPhases = (
+				576189852B76F2E000B24CEF /* Sources */,
+				576189862B76F2E000B24CEF /* Frameworks */,
+				576189872B76F2E000B24CEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5761898B2B76F2E000B24CEF /* PBXTargetDependency */,
+			);
+			name = LaserSocketTests;
+			productName = LaserSocketTests;
+			productReference = 576189892B76F2E000B24CEF /* LaserSocketTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		576189922B76F2E000B24CEF /* LaserSocketUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 576189A32B76F2E000B24CEF /* Build configuration list for PBXNativeTarget "LaserSocketUITests" */;
+			buildPhases = (
+				5761898F2B76F2E000B24CEF /* Sources */,
+				576189902B76F2E000B24CEF /* Frameworks */,
+				576189912B76F2E000B24CEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				576189952B76F2E000B24CEF /* PBXTargetDependency */,
+			);
+			name = LaserSocketUITests;
+			productName = LaserSocketUITests;
+			productReference = 576189932B76F2E000B24CEF /* LaserSocketUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		576189712B76F2DF00B24CEF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					576189782B76F2DF00B24CEF = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					576189882B76F2E000B24CEF = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 576189782B76F2DF00B24CEF;
+					};
+					576189922B76F2E000B24CEF = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 576189782B76F2DF00B24CEF;
+					};
+				};
+			};
+			buildConfigurationList = 576189742B76F2DF00B24CEF /* Build configuration list for PBXProject "LaserSocket" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 576189702B76F2DF00B24CEF;
+			productRefGroup = 5761897A2B76F2DF00B24CEF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				576189782B76F2DF00B24CEF /* LaserSocket */,
+				576189882B76F2E000B24CEF /* LaserSocketTests */,
+				576189922B76F2E000B24CEF /* LaserSocketUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		576189772B76F2DF00B24CEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				576189842B76F2E000B24CEF /* Preview Assets.xcassets in Resources */,
+				576189812B76F2E000B24CEF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576189872B76F2E000B24CEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576189912B76F2E000B24CEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		576189752B76F2DF00B24CEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5761897F2B76F2DF00B24CEF /* ContentView.swift in Sources */,
+				5761897D2B76F2DF00B24CEF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		576189852B76F2E000B24CEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5761898E2B76F2E000B24CEF /* LaserSocketTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5761898F2B76F2E000B24CEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				576189982B76F2E000B24CEF /* LaserSocketUITests.swift in Sources */,
+				5761899A2B76F2E000B24CEF /* LaserSocketUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5761898B2B76F2E000B24CEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 576189782B76F2DF00B24CEF /* LaserSocket */;
+			targetProxy = 5761898A2B76F2E000B24CEF /* PBXContainerItemProxy */;
+		};
+		576189952B76F2E000B24CEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 576189782B76F2DF00B24CEF /* LaserSocket */;
+			targetProxy = 576189942B76F2E000B24CEF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5761899B2B76F2E000B24CEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5761899C2B76F2E000B24CEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5761899E2B76F2E000B24CEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LaserSocket/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Playground.LaserSocket;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5761899F2B76F2E000B24CEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LaserSocket/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Playground.LaserSocket;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		576189A12B76F2E000B24CEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Playground.LaserSocketTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LaserSocket.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LaserSocket";
+			};
+			name = Debug;
+		};
+		576189A22B76F2E000B24CEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Playground.LaserSocketTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LaserSocket.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LaserSocket";
+			};
+			name = Release;
+		};
+		576189A42B76F2E000B24CEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Playground.LaserSocketUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LaserSocket;
+			};
+			name = Debug;
+		};
+		576189A52B76F2E000B24CEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Playground.LaserSocketUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LaserSocket;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		576189742B76F2DF00B24CEF /* Build configuration list for PBXProject "LaserSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5761899B2B76F2E000B24CEF /* Debug */,
+				5761899C2B76F2E000B24CEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5761899D2B76F2E000B24CEF /* Build configuration list for PBXNativeTarget "LaserSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5761899E2B76F2E000B24CEF /* Debug */,
+				5761899F2B76F2E000B24CEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		576189A02B76F2E000B24CEF /* Build configuration list for PBXNativeTarget "LaserSocketTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				576189A12B76F2E000B24CEF /* Debug */,
+				576189A22B76F2E000B24CEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		576189A32B76F2E000B24CEF /* Build configuration list for PBXNativeTarget "LaserSocketUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				576189A42B76F2E000B24CEF /* Debug */,
+				576189A52B76F2E000B24CEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 576189712B76F2DF00B24CEF /* Project object */;
+}
