@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0992F28A9CEEC00233FA2954 /* Pods_LaserSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2D34C54A4A83F760506A49 /* Pods_LaserSocket.framework */; };
+		5725F7A92B799DFC004BD96B /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = 5725F7A82B799DFC004BD96B /* FocusEntity */; };
 		5761897D2B76F2DF00B24CEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761897C2B76F2DF00B24CEF /* AppDelegate.swift */; };
 		5761897F2B76F2DF00B24CEF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761897E2B76F2DF00B24CEF /* ContentView.swift */; };
 		576189812B76F2E000B24CEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 576189802B76F2E000B24CEF /* Assets.xcassets */; };
@@ -14,6 +16,12 @@
 		5761898E2B76F2E000B24CEF /* LaserSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761898D2B76F2E000B24CEF /* LaserSocketTests.swift */; };
 		576189982B76F2E000B24CEF /* LaserSocketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576189972B76F2E000B24CEF /* LaserSocketUITests.swift */; };
 		5761899A2B76F2E000B24CEF /* LaserSocketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576189992B76F2E000B24CEF /* LaserSocketUITestsLaunchTests.swift */; };
+		576189A72B76F4EC00B24CEF /* SocketConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576189A62B76F4EC00B24CEF /* SocketConnection.swift */; };
+		576189AD2B798EDE00B24CEF /* fender_stratocaster.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 576189A92B798EDE00B24CEF /* fender_stratocaster.usdz */; };
+		576189AE2B798EDF00B24CEF /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 576189AA2B798EDE00B24CEF /* tv_retro.usdz */; };
+		576189AF2B798EDF00B24CEF /* robot_walk_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 576189AB2B798EDE00B24CEF /* robot_walk_idle.usdz */; };
+		576189B02B798EDF00B24CEF /* toy_biplane_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 576189AC2B798EDE00B24CEF /* toy_biplane_idle.usdz */; };
+		576189B52B7995E200B24CEF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576189B42B7995E200B24CEF /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12F35FD7B0E90FCC55A2E03B /* Pods-LaserSocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaserSocket.debug.xcconfig"; path = "Target Support Files/Pods-LaserSocket/Pods-LaserSocket.debug.xcconfig"; sourceTree = "<group>"; };
 		576189792B76F2DF00B24CEF /* LaserSocket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaserSocket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5761897C2B76F2DF00B24CEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5761897E2B76F2DF00B24CEF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +53,14 @@
 		576189932B76F2E000B24CEF /* LaserSocketUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LaserSocketUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		576189972B76F2E000B24CEF /* LaserSocketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaserSocketUITests.swift; sourceTree = "<group>"; };
 		576189992B76F2E000B24CEF /* LaserSocketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaserSocketUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		576189A62B76F4EC00B24CEF /* SocketConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketConnection.swift; sourceTree = "<group>"; };
+		576189A92B798EDE00B24CEF /* fender_stratocaster.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = fender_stratocaster.usdz; path = ModelData/fender_stratocaster.usdz; sourceTree = SOURCE_ROOT; };
+		576189AA2B798EDE00B24CEF /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = tv_retro.usdz; path = ModelData/tv_retro.usdz; sourceTree = SOURCE_ROOT; };
+		576189AB2B798EDE00B24CEF /* robot_walk_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = robot_walk_idle.usdz; path = ModelData/robot_walk_idle.usdz; sourceTree = SOURCE_ROOT; };
+		576189AC2B798EDE00B24CEF /* toy_biplane_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = toy_biplane_idle.usdz; path = ModelData/toy_biplane_idle.usdz; sourceTree = SOURCE_ROOT; };
+		576189B42B7995E200B24CEF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		606D16324F677D71E1D57CB6 /* Pods-LaserSocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LaserSocket.release.xcconfig"; path = "Target Support Files/Pods-LaserSocket/Pods-LaserSocket.release.xcconfig"; sourceTree = "<group>"; };
+		DC2D34C54A4A83F760506A49 /* Pods_LaserSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LaserSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5725F7A92B799DFC004BD96B /* FocusEntity in Frameworks */,
+				0992F28A9CEEC00233FA2954 /* Pods_LaserSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +97,8 @@
 				5761898C2B76F2E000B24CEF /* LaserSocketTests */,
 				576189962B76F2E000B24CEF /* LaserSocketUITests */,
 				5761897A2B76F2DF00B24CEF /* Products */,
+				86F7355890A4E348E31A55A2 /* Pods */,
+				8AEAA41E4449B03A2A5EE57D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,8 +115,11 @@
 		5761897B2B76F2DF00B24CEF /* LaserSocket */ = {
 			isa = PBXGroup;
 			children = (
+				576189B42B7995E200B24CEF /* Model.swift */,
 				5761897C2B76F2DF00B24CEF /* AppDelegate.swift */,
 				5761897E2B76F2DF00B24CEF /* ContentView.swift */,
+				576189A62B76F4EC00B24CEF /* SocketConnection.swift */,
+				576189A82B798EA400B24CEF /* Models */,
 				576189802B76F2E000B24CEF /* Assets.xcassets */,
 				576189822B76F2E000B24CEF /* Preview Content */,
 			);
@@ -127,6 +151,34 @@
 			path = LaserSocketUITests;
 			sourceTree = "<group>";
 		};
+		576189A82B798EA400B24CEF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				576189A92B798EDE00B24CEF /* fender_stratocaster.usdz */,
+				576189AB2B798EDE00B24CEF /* robot_walk_idle.usdz */,
+				576189AC2B798EDE00B24CEF /* toy_biplane_idle.usdz */,
+				576189AA2B798EDE00B24CEF /* tv_retro.usdz */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		86F7355890A4E348E31A55A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				12F35FD7B0E90FCC55A2E03B /* Pods-LaserSocket.debug.xcconfig */,
+				606D16324F677D71E1D57CB6 /* Pods-LaserSocket.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8AEAA41E4449B03A2A5EE57D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DC2D34C54A4A83F760506A49 /* Pods_LaserSocket.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,15 +186,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5761899D2B76F2E000B24CEF /* Build configuration list for PBXNativeTarget "LaserSocket" */;
 			buildPhases = (
+				DDC630B9BB1E8E81781F76C0 /* [CP] Check Pods Manifest.lock */,
 				576189752B76F2DF00B24CEF /* Sources */,
 				576189762B76F2DF00B24CEF /* Frameworks */,
 				576189772B76F2DF00B24CEF /* Resources */,
+				A2757E44B4541B3D3695FACF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = LaserSocket;
+			packageProductDependencies = (
+				5725F7A82B799DFC004BD96B /* FocusEntity */,
+			);
 			productName = LaserSocket;
 			productReference = 576189792B76F2DF00B24CEF /* LaserSocket.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +272,9 @@
 				Base,
 			);
 			mainGroup = 576189702B76F2DF00B24CEF;
+			packageReferences = (
+				5725F7A72B799DFC004BD96B /* XCRemoteSwiftPackageReference "FocusEntity" */,
+			);
 			productRefGroup = 5761897A2B76F2DF00B24CEF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -232,7 +292,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				576189842B76F2E000B24CEF /* Preview Assets.xcassets in Resources */,
+				576189AF2B798EDF00B24CEF /* robot_walk_idle.usdz in Resources */,
 				576189812B76F2E000B24CEF /* Assets.xcassets in Resources */,
+				576189AE2B798EDF00B24CEF /* tv_retro.usdz in Resources */,
+				576189B02B798EDF00B24CEF /* toy_biplane_idle.usdz in Resources */,
+				576189AD2B798EDE00B24CEF /* fender_stratocaster.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,13 +316,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A2757E44B4541B3D3695FACF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LaserSocket/Pods-LaserSocket-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LaserSocket/Pods-LaserSocket-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LaserSocket/Pods-LaserSocket-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DDC630B9BB1E8E81781F76C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LaserSocket-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		576189752B76F2DF00B24CEF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5761897F2B76F2DF00B24CEF /* ContentView.swift in Sources */,
+				576189A72B76F4EC00B24CEF /* SocketConnection.swift in Sources */,
 				5761897D2B76F2DF00B24CEF /* AppDelegate.swift in Sources */,
+				576189B52B7995E200B24CEF /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,13 +524,16 @@
 		};
 		5761899E2B76F2E000B24CEF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12F35FD7B0E90FCC55A2E03B /* Pods-LaserSocket.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LaserSocket/Preview Content\"";
+				DEVELOPMENT_TEAM = 8N32ZC397Q;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -431,6 +542,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -446,13 +558,16 @@
 		};
 		5761899F2B76F2E000B24CEF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 606D16324F677D71E1D57CB6 /* Pods-LaserSocket.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LaserSocket/Preview Content\"";
+				DEVELOPMENT_TEAM = 8N32ZC397Q;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -461,6 +576,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -586,6 +702,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5725F7A72B799DFC004BD96B /* XCRemoteSwiftPackageReference "FocusEntity" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maxxfrazer/FocusEntity";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5725F7A82B799DFC004BD96B /* FocusEntity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5725F7A72B799DFC004BD96B /* XCRemoteSwiftPackageReference "FocusEntity" */;
+			productName = FocusEntity;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 576189712B76F2DF00B24CEF /* Project object */;
 }
