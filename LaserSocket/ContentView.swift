@@ -17,15 +17,11 @@ struct ContentView: View {
     @State private var selectedModel: Model?
     @State private var modelConfirmedForPlacement: Model?
 
-    // Add the blueBoxAdded flag
-    @State private var blueBoxAdded = false
-
     private var models: [Model] = {
-        //Dynamically get our model filenames
-        let filemanger = FileManager.default
+        let fileManager = FileManager.default
 
         guard let path = Bundle.main.resourcePath,
-              let files = try? filemanger.contentsOfDirectory(atPath: path) else {
+              let files = try? fileManager.contentsOfDirectory(atPath: path) else {
             return []
         }
 
@@ -40,7 +36,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: $blueBoxAdded)
+            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
             if self.isPlacementEnabled {
                 PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
             } else {
@@ -52,7 +48,6 @@ struct ContentView: View {
 
 struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
-    @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
 
     func makeUIView(context: Context) -> ARView {
         let arView = CustomARView(frame: .zero)
@@ -60,29 +55,19 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
-        if !blueBoxAdded {
-            // Create a global anchor
-            let globalAnchorEntity = AnchorEntity(world: [0, 0, 0]) // Adjust x, y, z as needed
-            uiView.scene.addAnchor(globalAnchorEntity)
-
-            // Create a blue box and attach it to the global anchor
-            let blueBox = MeshResource.generateBox(size: 0.1)
-            let blueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
-            let blueBoxAnchorEntity = AnchorEntity(world: [0.1, -0.25, -0.5]) // Set the world position as needed
-            blueBoxAnchorEntity.addChild(blueBoxEntity)
-            globalAnchorEntity.addChild(blueBoxAnchorEntity)
-
-            print("Debug: Initial blue box added to scene")
-
-            blueBoxAdded = true
-        }
-
         if let model = self.modelConfirmedForPlacement {
             if let modelEntity = model.modelEntity {
                 // Create an anchor for the current model
                 let currentAnchorEntity = AnchorEntity(plane: .any)
                 currentAnchorEntity.addChild(modelEntity)
                 uiView.scene.addAnchor(currentAnchorEntity)
+
+                // Create a blue box and attach it to the current anchor
+                let blueBox = MeshResource.generateBox(size: 0.1)
+                let blueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
+                let blueBoxAnchorEntity = AnchorEntity(world: [0.1, -0.25, -0.5]) // Set the world position as needed
+                blueBoxAnchorEntity.addChild(blueBoxEntity)
+                currentAnchorEntity.addChild(blueBoxAnchorEntity)
 
                 print("Debug: adding model to scene - \(model.modelName)")
             } else {
