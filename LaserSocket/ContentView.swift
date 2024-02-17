@@ -62,13 +62,13 @@ struct ARViewContainer: UIViewRepresentable {
     func updateUIView(_ uiView: ARView, context: Context) {
         if !blueBoxAdded {
             // Create a global anchor
-            let globalAnchorEntity = AnchorEntity(world: [0.5, 0, -1.5]) // Adjust x, y, z as needed
+            let globalAnchorEntity = AnchorEntity(world: [0, 0, 0]) // Adjust x, y, z as needed
             uiView.scene.addAnchor(globalAnchorEntity)
 
             // Create a blue box and attach it to the global anchor
             let blueBox = MeshResource.generateBox(size: 0.1)
             let blueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
-            let blueBoxAnchorEntity = AnchorEntity(world: [0, 0, 0]) // Set the world position as needed
+            let blueBoxAnchorEntity = AnchorEntity(world: [0.1, -0.25, -0.5]) // Set the world position as needed
             blueBoxAnchorEntity.addChild(blueBoxEntity)
             globalAnchorEntity.addChild(blueBoxAnchorEntity)
 
