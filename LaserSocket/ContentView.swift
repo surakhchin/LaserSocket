@@ -64,22 +64,6 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct CoordinatesData: Codable {
-    let active: Int
-    let coords: [Coordinate]
-    let id: String
-    let type: String
-
-    struct Coordinate: Codable {
-        let acr: String
-        let beta: String
-        let gamma: String
-        let header: Int
-        let lat: String
-        let lng: String
-    }
-}
-
 struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
     @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
