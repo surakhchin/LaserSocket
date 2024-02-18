@@ -63,7 +63,7 @@ struct ARViewContainer: UIViewRepresentable {
                 uiView.scene.addAnchor(currentAnchorEntity)
 
                 // Create a blue box and attach it to the current anchor
-                let blueBox = MeshResource.generateBox(size: 0.1)
+                let blueBox = MeshResource.generateBox(width: 0.05, height: 0.05, depth: 0.1)
                 let blueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
                 let blueBoxAnchorEntity = AnchorEntity(world: [0.1, -0.25, -0.5]) // Set the world position as needed
                 blueBoxAnchorEntity.addChild(blueBoxEntity)
