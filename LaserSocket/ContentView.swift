@@ -17,7 +17,11 @@ struct ContentView: View {
     @State private var selectedModel: Model?
     @State private var modelConfirmedForPlacement: Model?
 
+    // Add the blueBoxAdded flag
+    @State private var blueBoxAdded = false
+
     private var models: [Model] = {
+        // Dynamically get our model filenames
         let fileManager = FileManager.default
 
         guard let path = Bundle.main.resourcePath,
@@ -36,9 +40,9 @@ struct ContentView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
+            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded)
             if self.isPlacementEnabled {
-                PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
+                PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded)
             } else {
                 ModelPickerView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, models: self.models)
             }
@@ -46,8 +50,10 @@ struct ContentView: View {
     }
 }
 
+
 struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
+    @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
 
     func makeUIView(context: Context) -> ARView {
         let arView = CustomARView(frame: .zero)
@@ -55,6 +61,27 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
+        // Check if the blue box is already added
+        if !blueBoxAdded {
+            // Create a global anchor
+            let globalAnchorEntity = AnchorEntity(world: [0, 0, -1]) // Start the blue box slightly in front of the camera
+            uiView.scene.addAnchor(globalAnchorEntity)
+
+            // Create a blue box (rectangle) and attach it to the global anchor
+            let blueBox = MeshResource.generateBox(size: [0.02, 0.1, 0.2]) // Adjust dimensions as needed
+            let blueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
+            let blueBoxAnchorEntity = AnchorEntity(world: [0.2, -0.3, -0.5])
+            blueBoxAnchorEntity.addChild(blueBoxEntity)
+            globalAnchorEntity.addChild(blueBoxAnchorEntity)
+
+            print("Debug: Blue box added to scene")
+
+            // Update the binding
+            DispatchQueue.main.async {
+                self.blueBoxAdded = true
+            }
+        }
+
         if let model = self.modelConfirmedForPlacement {
             if let modelEntity = model.modelEntity {
                 // Create an anchor for the current model
@@ -62,16 +89,9 @@ struct ARViewContainer: UIViewRepresentable {
                 currentAnchorEntity.addChild(modelEntity)
                 uiView.scene.addAnchor(currentAnchorEntity)
 
-                // Create a blue box and attach it to the current anchor
-                let blueBox = MeshResource.generateBox(width: 0.05, height: 0.05, depth: 0.1)
-                let blueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
-                let blueBoxAnchorEntity = AnchorEntity(world: [0.1, -0.25, -0.5]) // Set the world position as needed
-                blueBoxAnchorEntity.addChild(blueBoxEntity)
-                currentAnchorEntity.addChild(blueBoxAnchorEntity)
-
-                print("Debug: adding model to scene - \(model.modelName)")
+                print("Debug: Adding model to scene - \(model.modelName)")
             } else {
-                print("Debug: unable to load modelEntity for - \(model.modelName)")
+                print("Debug: Unable to load modelEntity for - \(model.modelName)")
             }
 
             DispatchQueue.main.async {
@@ -79,7 +99,9 @@ struct ARViewContainer: UIViewRepresentable {
             }
         }
     }
+
 }
+
 
 class CustomARView: ARView {
     let focusSquare = FESquare()
@@ -121,6 +143,7 @@ struct PlacementButtonsView: View {
     @Binding var isPlacementEnabled: Bool
     @Binding var selectedModel: Model?
     @Binding var modelConfirmedForPlacement: Model?
+    @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
 
     var body: some View {
         HStack {
