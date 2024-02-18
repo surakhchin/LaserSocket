@@ -47,9 +47,38 @@ struct ContentView: View {
                 ModelPickerView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, models: self.models)
             }
         }
+        .onAppear {
+            // Observe changes in the SocketConnection shared instance
+            socketConnection.socket.on("load:coords") { data, ack in
+                print("Received load:coords in ContentView: \(data)")
+
+            }
+        }
     }
 }
 
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .environmentObject(SocketConnection.shared)
+    }
+}
+
+struct CoordinatesData: Codable {
+    let active: Int
+    let coords: [Coordinate]
+    let id: String
+    let type: String
+
+    struct Coordinate: Codable {
+        let acr: String
+        let beta: String
+        let gamma: String
+        let header: Int
+        let lat: String
+        let lng: String
+    }
+}
 
 struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
@@ -61,6 +90,7 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
+        
         // Check if the blue box is already added
         if !blueBoxAdded {
             // Create a global anchor
@@ -99,9 +129,7 @@ struct ARViewContainer: UIViewRepresentable {
             }
         }
     }
-
 }
-
 
 class CustomARView: ARView {
     let focusSquare = FESquare()
@@ -214,9 +242,10 @@ struct ModelPickerView: View {
 }
 
 #if DEBUG
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//            .environmentObject(SocketConnection.shared)
+//    }
+//}
 #endif
