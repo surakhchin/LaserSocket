@@ -138,13 +138,14 @@ struct ARViewContainer: UIViewRepresentable {
 
             // Create an anchor and apply orientation to it
             let anchorEntity = AnchorEntity()
+            anchorEntity.position = simd_float3(0, -0.5, -1) // Adjust the -1.5 value to move it closer or further
             anchorEntity.name = "BlueBoxAnchor"
             anchorEntity.addChild(newBlueBoxEntity)
 
             // Convert degrees to radians
             let alpha = coordinatesData.alpha * .pi / 180.0
-            let beta = -coordinatesData.beta * .pi / 180.0  // Negate beta value
-            let gamma = coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
+            let beta = coordinatesData.beta * .pi / 180.0  // Negate beta value
+            let gamma = -coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
 
             anchorEntity.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
                                       simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
@@ -164,8 +165,8 @@ struct ARViewContainer: UIViewRepresentable {
             if let existingBlueBoxAnchor = uiView.scene.anchors.first(where: { $0.name == "BlueBoxAnchor" }) {
                 // Convert degrees to radians
                 let alpha = coordinatesData.alpha * .pi / 180.0
-                let beta = -coordinatesData.beta * .pi / 180.0  // Negate beta value
-                let gamma = coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
+                let beta = coordinatesData.beta * .pi / 180.0  // Negate beta value
+                let gamma = -coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
 
                 existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
                                                     simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
