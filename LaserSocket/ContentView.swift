@@ -52,12 +52,10 @@ struct ContentView: View {
             // Observe changes in the SocketConnection shared instance
             socketConnection.socket.on("laserSocketServer") { data, ack in
                 if let jsonArray = data as? [[String: Any]], let firstItem = jsonArray.first {
-                    print("Received load:coords in ContentView: \(jsonArray)")
-
                     do {
                         let jsonData = try JSONSerialization.data(withJSONObject: firstItem, options: [])
                         let coordinatesData = try JSONDecoder().decode(CoordinatesData.self, from: jsonData)
-                        print("Decoded CoordinatesData: \(coordinatesData)")
+//                        print("Decoded CoordinatesData: \(coordinatesData)")
                         self.socketData = coordinatesData
                     } catch {
                         print("Error decoding CoordinatesData: \(error)")
@@ -84,7 +82,6 @@ struct CoordinatesData: Codable {
     let gamma: Double
 }
 
-
 struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
     @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
@@ -96,15 +93,13 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
-        if let data = self.socketData as? [[String: Any]], let firstItem = data.first {
-            if let coordinatesData = self.socketData as? CoordinatesData {
-                    print("Converted CoordinatesData: \(coordinatesData)")
-                    // Now you can use coordinatesData in your ARView
+        if let coordinatesData = self.socketData as? CoordinatesData {
+            print("Converted CoordinatesData: \(coordinatesData)")
+            // Now you can use coordinatesData in your ARView
 
-                    // Rest of your code...
-                } else {
-                    print("Error converting CoordinatesData")
-                }
+            // Rest of your code...
+        } else {
+            print("Error converting CoordinatesData")
         }
 
         // Check if the blue box is already added
@@ -145,6 +140,8 @@ struct ARViewContainer: UIViewRepresentable {
             }
         }
     }
+
+
 }
 
 class CustomARView: ARView {
