@@ -50,8 +50,9 @@ struct ContentView: View {
         }
         .onAppear {
             // Observe changes in the SocketConnection shared instance
-            socketConnection.socket.on("load:coords") { data, ack in
+            socketConnection.socket.on("laserSocketServer") { data, ack in
 //                print("Received load:coords in ContentView: \(data)")
+                
                 socketData = data
 
             }
@@ -67,18 +68,9 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct CoordinatesData: Codable {
-    let active: Int
-    let coords: [Coordinate]
-    let id: String
-    let type: String
-    struct Coordinate: Codable {
-        let acr: String
-        let beta: String
-        let gamma: String
-        let header: Int
-        let lat: String
-        let lng: String
-    }
+    let alpha: Double
+    let beta: Double
+    let gamma: Double
 }
 
 struct ARViewContainer: UIViewRepresentable {

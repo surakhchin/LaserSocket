@@ -35,8 +35,8 @@ class SocketConnection: ObservableObject {
         }
 
         // Listen for "load:coords" event from the server
-        socket.on("load:coords") { data, ack in
-//            print("Received load:coords: \(data)")
+        socket.on("laserSocketServer") { data, ack in
+//            print("Received laserSocketServer: \(data)")
         }
 
         // Listen for "dynamic" event from the server
