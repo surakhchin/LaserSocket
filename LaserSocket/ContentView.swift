@@ -123,7 +123,7 @@ struct ARViewContainer: UIViewRepresentable {
             // Convert degrees to radians
             let alpha = coordinatesData.alpha * .pi / 180.0
             let beta = coordinatesData.beta * .pi / 180.0
-            let gamma = coordinatesData.gamma * .pi / 180.0
+            let gamma = coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
 
             anchorEntity.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
                                       simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
@@ -144,7 +144,7 @@ struct ARViewContainer: UIViewRepresentable {
                 // Convert degrees to radians
                 let alpha = coordinatesData.alpha * .pi / 180.0
                 let beta = coordinatesData.beta * .pi / 180.0
-                let gamma = coordinatesData.gamma * .pi / 180.0
+                let gamma = coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
 
                 existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
                                                     simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
@@ -154,6 +154,9 @@ struct ARViewContainer: UIViewRepresentable {
             }
         }
     }
+
+
+    //^
 }
 
 
