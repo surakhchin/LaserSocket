@@ -51,11 +51,22 @@ struct ContentView: View {
         .onAppear {
             // Observe changes in the SocketConnection shared instance
             socketConnection.socket.on("laserSocketServer") { data, ack in
-//                print("Received load:coords in ContentView: \(data)")
-                
-                socketData = data
+                if let jsonArray = data as? [[String: Any]], let firstItem = jsonArray.first {
+                    print("Received load:coords in ContentView: \(jsonArray)")
 
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: firstItem, options: [])
+                        let coordinatesData = try JSONDecoder().decode(CoordinatesData.self, from: jsonData)
+                        print("Decoded CoordinatesData: \(coordinatesData)")
+                        self.socketData = coordinatesData
+                    } catch {
+                        print("Error decoding CoordinatesData: \(error)")
+                    }
+                } else {
+                    print("Received data is not a valid array of dictionaries.")
+                }
             }
+
         }
     }
 }
@@ -73,11 +84,11 @@ struct CoordinatesData: Codable {
     let gamma: Double
 }
 
+
 struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
     @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
     @Binding var socketData: Any?
-    
 
     func makeUIView(context: Context) -> ARView {
         let arView = CustomARView(frame: .zero)
@@ -85,9 +96,17 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
-        
-        print("socketData: \(socketData)")
-        
+        if let data = self.socketData as? [[String: Any]], let firstItem = data.first {
+            if let coordinatesData = self.socketData as? CoordinatesData {
+                    print("Converted CoordinatesData: \(coordinatesData)")
+                    // Now you can use coordinatesData in your ARView
+
+                    // Rest of your code...
+                } else {
+                    print("Error converting CoordinatesData")
+                }
+        }
+
         // Check if the blue box is already added
         if !blueBoxAdded {
             // Create a global anchor
