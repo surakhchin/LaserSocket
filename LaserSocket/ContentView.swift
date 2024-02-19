@@ -82,6 +82,15 @@ struct CoordinatesData: Codable {
     let gamma: Double
 }
 
+
+class BlueBoxContainer {
+    var blueBoxEntity: ModelEntity?
+
+    init(blueBoxEntity: ModelEntity? = nil) {
+        self.blueBoxEntity = blueBoxEntity
+    }
+}
+
 struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
     @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
@@ -93,27 +102,35 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
-        if let coordinatesData = self.socketData as? CoordinatesData {
-            print("Converted CoordinatesData: \(coordinatesData)")
-            // Now you can use coordinatesData in your ARView
-
-            // Rest of your code...
-        } else {
+        guard let coordinatesData = self.socketData as? CoordinatesData else {
             print("Error converting CoordinatesData")
+            return
         }
+
+        print("Converted CoordinatesData: \(coordinatesData)")
 
         // Check if the blue box is already added
         if !blueBoxAdded {
-            // Create a global anchor
-            let globalAnchorEntity = AnchorEntity(world: [0, 0, -1]) // Start the blue box slightly in front of the camera
-            uiView.scene.addAnchor(globalAnchorEntity)
-
-            // Create a blue box (rectangle) and attach it to the global anchor
+            // Create a blue box (rectangle)
             let blueBox = MeshResource.generateBox(size: [0.02, 0.1, 0.2]) // Adjust dimensions as needed
-            let blueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
-            let blueBoxAnchorEntity = AnchorEntity(world: [0.2, -0.3, -0.5])
-            blueBoxAnchorEntity.addChild(blueBoxEntity)
-            globalAnchorEntity.addChild(blueBoxAnchorEntity)
+            let newBlueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
+
+            // Create an anchor and apply orientation to it
+            let anchorEntity = AnchorEntity()
+            anchorEntity.name = "BlueBoxAnchor"
+            anchorEntity.addChild(newBlueBoxEntity)
+
+            // Convert degrees to radians
+            let alpha = coordinatesData.alpha * .pi / 180.0
+            let beta = coordinatesData.beta * .pi / 180.0
+            let gamma = coordinatesData.gamma * .pi / 180.0
+
+            anchorEntity.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
+                                      simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
+                                      simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
+
+            // Add the anchor to the scene
+            uiView.scene.addAnchor(anchorEntity)
 
             print("Debug: Blue box added to scene")
 
@@ -121,28 +138,25 @@ struct ARViewContainer: UIViewRepresentable {
             DispatchQueue.main.async {
                 self.blueBoxAdded = true
             }
-        }
+        } else {
+            // Update the orientation of the existing blue box
+            if let existingBlueBoxAnchor = uiView.scene.anchors.first(where: { $0.name == "BlueBoxAnchor" }) {
+                // Convert degrees to radians
+                let alpha = coordinatesData.alpha * .pi / 180.0
+                let beta = coordinatesData.beta * .pi / 180.0
+                let gamma = coordinatesData.gamma * .pi / 180.0
 
-        if let model = self.modelConfirmedForPlacement {
-            if let modelEntity = model.modelEntity {
-                // Create an anchor for the current model
-                let currentAnchorEntity = AnchorEntity(plane: .any)
-                currentAnchorEntity.addChild(modelEntity)
-                uiView.scene.addAnchor(currentAnchorEntity)
+                existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
+                                                    simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
+                                                    simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
 
-                print("Debug: Adding model to scene - \(model.modelName)")
-            } else {
-                print("Debug: Unable to load modelEntity for - \(model.modelName)")
-            }
-
-            DispatchQueue.main.async {
-                modelConfirmedForPlacement = nil
+                print("Debug: Updated orientation of the existing blue box")
             }
         }
     }
-
-
 }
+
+
 
 class CustomARView: ARView {
     let focusSquare = FESquare()
