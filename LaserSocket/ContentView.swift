@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var isPlacementEnabled = false
     @State private var selectedModel: Model?
     @State private var modelConfirmedForPlacement: Model?
+    @State private var socketData: Any?
 
     // Add the blueBoxAdded flag
     @State private var blueBoxAdded = false
@@ -40,7 +41,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded)
+            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded, socketData: self.$socketData)
             if self.isPlacementEnabled {
                 PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded)
             } else {
@@ -50,7 +51,8 @@ struct ContentView: View {
         .onAppear {
             // Observe changes in the SocketConnection shared instance
             socketConnection.socket.on("load:coords") { data, ack in
-                print("Received load:coords in ContentView: \(data)")
+//                print("Received load:coords in ContentView: \(data)")
+                socketData = data
 
             }
         }
@@ -64,9 +66,26 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
+struct CoordinatesData: Codable {
+    let active: Int
+    let coords: [Coordinate]
+    let id: String
+    let type: String
+    struct Coordinate: Codable {
+        let acr: String
+        let beta: String
+        let gamma: String
+        let header: Int
+        let lat: String
+        let lng: String
+    }
+}
+
 struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
     @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
+    @Binding var socketData: Any?
+    
 
     func makeUIView(context: Context) -> ARView {
         let arView = CustomARView(frame: .zero)
@@ -74,6 +93,8 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
+        
+        print("socketData: \(socketData)")
         
         // Check if the blue box is already added
         if !blueBoxAdded {
