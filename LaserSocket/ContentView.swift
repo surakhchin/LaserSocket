@@ -102,6 +102,27 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
+        // Code for models:
+        
+        if let model = self.modelConfirmedForPlacement {
+            if let modelEntity = model.modelEntity {
+                print("Debug: adding model to scene - \(model.modelName)")
+                
+                let anchorEntity = AnchorEntity(plane: .any)
+                anchorEntity.addChild(modelEntity)
+                uiView.scene.addAnchor(anchorEntity)
+            } else {
+                print("Debug: Unable to load modelEntity for - \(model.modelName)")
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.modelConfirmedForPlacement = nil
+        }
+        
+        
+        
+        // Code for blue box
         guard let coordinatesData = self.socketData as? CoordinatesData else {
             print("Error converting CoordinatesData")
             return
@@ -150,7 +171,7 @@ struct ARViewContainer: UIViewRepresentable {
                                                     simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
                                                     simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
 
-                print("Debug: Updated orientation of the existing blue box")
+//                print("Debug: Updated orientation of the existing blue box")
             }
         }
     }
