@@ -17,6 +17,7 @@ struct ContentView: View {
     @State private var selectedModel: Model?
     @State private var modelConfirmedForPlacement: Model?
     @State private var socketData: Any?
+    @State private var initialAlpha: Double?
 
     // Add the blueBoxAdded flag
     @State private var blueBoxAdded = false
@@ -41,7 +42,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded, socketData: self.$socketData)
+            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded, socketData: self.$socketData, initialAlpha: self.$initialAlpha)
             if self.isPlacementEnabled {
                 PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded)
             } else {
@@ -95,6 +96,8 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var modelConfirmedForPlacement: Model?
     @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
     @Binding var socketData: Any?
+    @Binding var initialAlpha: Double?
+    
 
     func makeUIView(context: Context) -> ARView {
         let arView = CustomARView(frame: .zero)
@@ -105,30 +108,37 @@ struct ARViewContainer: UIViewRepresentable {
         // Code for models:
         
         if let model = self.modelConfirmedForPlacement {
-            if let modelEntity = model.modelEntity {
-                print("Debug: adding model to scene - \(model.modelName)")
-                
-                let anchorEntity = AnchorEntity(plane: .any)
-                anchorEntity.addChild(modelEntity)
-                uiView.scene.addAnchor(anchorEntity)
-            } else {
-                print("Debug: Unable to load modelEntity for - \(model.modelName)")
+                if let modelEntity = model.modelEntity {
+                    print("Debug: adding model to scene - \(model.modelName)")
+                    
+                    let anchorEntity = AnchorEntity(plane: .any)
+                    anchorEntity.addChild(modelEntity)
+                    uiView.scene.addAnchor(anchorEntity)
+                } else {
+                    print("Debug: Unable to load modelEntity for - \(model.modelName)")
+                }
             }
-        }
-        
-        DispatchQueue.main.async {
-            self.modelConfirmedForPlacement = nil
-        }
-        
-        
-        
-        // Code for blue box
-        guard let coordinatesData = self.socketData as? CoordinatesData else {
-            print("Error converting CoordinatesData")
-            return
-        }
+            
+            DispatchQueue.main.async {
+                self.modelConfirmedForPlacement = nil
+            }
+            
+            // Code for blue box
+            guard let coordinatesData = self.socketData as? CoordinatesData else {
+                print("Error converting CoordinatesData")
+                return
+            }
+            
+            if initialAlpha == nil {
+                DispatchQueue.main.async {
+                    initialAlpha = coordinatesData.alpha
+                    print("Initial Alpha (set): \(String(format: "%.3f", initialAlpha ?? 0.0))")
+                }
+            }
 
-        print("Converted CoordinatesData: \(coordinatesData)")
+//        print("Converted CoordinatesData: \(coordinatesData), \(initialAlpha)")
+
+        print("Converted CoordinatesData: CoordinatesData(alpha: \(String(format: "%.3f", coordinatesData.alpha)), beta: \(String(format: "%.3f", coordinatesData.beta)), gamma: \(String(format: "%.3f", coordinatesData.gamma))), \(initialAlpha != nil ? String(format: "%.3f", initialAlpha!) : "nil")")
 
         // Check if the blue box is already added
         if !blueBoxAdded {
