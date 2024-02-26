@@ -106,39 +106,49 @@ struct ARViewContainer: UIViewRepresentable {
 
     func updateUIView(_ uiView: ARView, context: Context) {
         // Code for models:
-        
+
+        // Ensure alpha is declared at the beginning of the function
+        var alpha: Double = 0.0
+
         if let model = self.modelConfirmedForPlacement {
-                if let modelEntity = model.modelEntity {
-                    print("Debug: adding model to scene - \(model.modelName)")
-                    
-                    let anchorEntity = AnchorEntity(plane: .any)
-                    anchorEntity.addChild(modelEntity)
-                    uiView.scene.addAnchor(anchorEntity)
-                } else {
-                    print("Debug: Unable to load modelEntity for - \(model.modelName)")
-                }
+            if let modelEntity = model.modelEntity {
+                print("Debug: adding model to scene - \(model.modelName)")
+
+                let anchorEntity = AnchorEntity(plane: .any)
+                anchorEntity.addChild(modelEntity)
+                uiView.scene.addAnchor(anchorEntity)
+            } else {
+                print("Debug: Unable to load modelEntity for - \(model.modelName)")
             }
-            
+        }
+
+        DispatchQueue.main.async {
+            self.modelConfirmedForPlacement = nil
+        }
+
+        // Code for blue box
+        guard let coordinatesData = self.socketData as? CoordinatesData else {
+            print("Error converting CoordinatesData")
+            return
+        }
+
+        if initialAlpha == nil {
             DispatchQueue.main.async {
-                self.modelConfirmedForPlacement = nil
+                initialAlpha = coordinatesData.alpha
+                print("Initial Alpha (set): \(String(format: "%.3f", initialAlpha ?? 0.0))")
             }
-            
-            // Code for blue box
-            guard let coordinatesData = self.socketData as? CoordinatesData else {
-                print("Error converting CoordinatesData")
-                return
-            }
-            
-            if initialAlpha == nil {
-                DispatchQueue.main.async {
-                    initialAlpha = coordinatesData.alpha
-                    print("Initial Alpha (set): \(String(format: "%.3f", initialAlpha ?? 0.0))")
-                }
-            }
+        }
 
-//        print("Converted CoordinatesData: \(coordinatesData), \(initialAlpha)")
-
-        print("Converted CoordinatesData: CoordinatesData(alpha: \(String(format: "%.3f", coordinatesData.alpha)), beta: \(String(format: "%.3f", coordinatesData.beta)), gamma: \(String(format: "%.3f", coordinatesData.gamma))), \(initialAlpha != nil ? String(format: "%.3f", initialAlpha!) : "nil")")
+        // Convert degrees to radians
+        if let initialAlpha = initialAlpha {
+            alpha = (coordinatesData.alpha - initialAlpha) * .pi / 180.0
+        } else {
+            // Handle the case where initialAlpha is nil
+            print("Error: initialAlpha is nil")
+            return
+        }
+        let beta = coordinatesData.beta * .pi / 180.0  // Negate beta value
+        let gamma = -coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
 
         // Check if the blue box is already added
         if !blueBoxAdded {
@@ -151,11 +161,6 @@ struct ARViewContainer: UIViewRepresentable {
             anchorEntity.position = simd_float3(0, -0.5, -1) // Adjust the -1.5 value to move it closer or further
             anchorEntity.name = "BlueBoxAnchor"
             anchorEntity.addChild(newBlueBoxEntity)
-
-            // Convert degrees to radians
-            let alpha = coordinatesData.alpha * .pi / 180.0
-            let beta = coordinatesData.beta * .pi / 180.0  // Negate beta value
-            let gamma = coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
 
             anchorEntity.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
                                       simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
@@ -173,19 +178,18 @@ struct ARViewContainer: UIViewRepresentable {
         } else {
             // Update the orientation of the existing blue box
             if let existingBlueBoxAnchor = uiView.scene.anchors.first(where: { $0.name == "BlueBoxAnchor" }) {
-                // Convert degrees to radians
-                let alpha = coordinatesData.alpha * .pi / 180.0
-                let beta = -coordinatesData.beta * .pi / 180.0  // Negate beta value
-                let gamma = coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
-
                 existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
                                                     simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
                                                     simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
 
-//                print("Debug: Updated orientation of the existing blue box")
+                // Optional: Add any additional update logic for the existing blue box
+                // ...
             }
+        // Print statement for coordinates and initial alpha
+            print("Converted CoordinatesData: CoordinatesData(alpha: \(String(format: "%.3f", coordinatesData.alpha)), beta: \(String(format: "%.3f", coordinatesData.beta)), gamma: \(String(format: "%.3f", coordinatesData.gamma))), \(initialAlpha != nil ? "Initial Alpha: \(String(format: "%.3f", initialAlpha!))" : "Initial Alpha: nil")")
         }
     }
+
 
 
     //^
