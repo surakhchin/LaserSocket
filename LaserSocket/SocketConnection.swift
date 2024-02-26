@@ -30,9 +30,9 @@ class SocketConnection: ObservableObject {
         }
 
         // Listen for "chat message" event from the server
-        socket.on("chat message") { data, ack in
-            print("Received chat message: \(data)")
-        }
+//        socket.on("chat message") { data, ack in
+//            print("Received chat message: \(data)")
+//        }
 
         // Listen for "load:coords" event from the server
         socket.on("laserSocketServer") { data, ack in

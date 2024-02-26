@@ -18,6 +18,7 @@ struct ContentView: View {
     @State private var modelConfirmedForPlacement: Model?
     @State private var socketData: Any?
     @State private var initialAlpha: Double?
+    @State private var hitData: Any?
 
     // Add the blueBoxAdded flag
     @State private var blueBoxAdded = false
@@ -42,7 +43,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded, socketData: self.$socketData, initialAlpha: self.$initialAlpha)
+            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded, socketData: self.$socketData, initialAlpha: self.$initialAlpha, hitData: self.$hitData)
             if self.isPlacementEnabled {
                 PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded)
             } else {
@@ -65,7 +66,17 @@ struct ContentView: View {
                     print("Received data is not a valid array of dictionaries.")
                 }
             }
-
+            socketConnection.socket.on("chat message") { data, ack in
+                if let dataArray = data as? [String], let hitString = dataArray.first {
+                    // Assuming "hit" is the only expected string in the array
+                    DispatchQueue.main.async {
+                        print("Received chat message: \(hitString)")
+                        self.hitData = ChatMessageData(message: hitString)
+                    }
+                } else {
+                    print("Received data is not a valid array or does not contain the expected string.")
+                }
+            }
         }
     }
 }
@@ -83,6 +94,10 @@ struct CoordinatesData: Codable {
     let gamma: Double
 }
 
+struct ChatMessageData: Codable {
+    let message: String
+    // Add other properties as needed
+}
 
 class BlueBoxContainer {
     var blueBoxEntity: ModelEntity?
@@ -97,7 +112,7 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
     @Binding var socketData: Any?
     @Binding var initialAlpha: Double?
-    
+    @Binding var hitData: Any?
 
     func makeUIView(context: Context) -> ARView {
         let arView = CustomARView(frame: .zero)
@@ -106,8 +121,6 @@ struct ARViewContainer: UIViewRepresentable {
 
     func updateUIView(_ uiView: ARView, context: Context) {
         // Code for models:
-
-        // Ensure alpha is declared at the beginning of the function
         var alpha: Double = 0.0
 
         if let model = self.modelConfirmedForPlacement {
@@ -139,26 +152,21 @@ struct ARViewContainer: UIViewRepresentable {
             }
         }
 
-        // Convert degrees to radians
         if let initialAlpha = initialAlpha {
             alpha = (coordinatesData.alpha - initialAlpha) * .pi / 180.0
         } else {
-            // Handle the case where initialAlpha is nil
             print("Error: initialAlpha is nil")
             return
         }
-        let beta = coordinatesData.beta * .pi / 180.0  // Negate beta value
-        let gamma = -coordinatesData.gamma * .pi / 180.0 + .pi / 2  // Rotate by 90 degrees around y-axis
+        let beta = coordinatesData.beta * .pi / 180.0
+        let gamma = -coordinatesData.gamma * .pi / 180.0 + .pi / 2
 
-        // Check if the blue box is already added
         if !blueBoxAdded {
-            // Create a blue box (rectangle)
-            let blueBox = MeshResource.generateBox(size: [0.02, 0.1, 0.2]) // Adjust dimensions as needed
+            let blueBox = MeshResource.generateBox(size: [0.02, 0.1, 0.2])
             let newBlueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
 
-            // Create an anchor and apply orientation to it
             let anchorEntity = AnchorEntity()
-            anchorEntity.position = simd_float3(0, -0.5, -1) // Adjust the -1.5 value to move it closer or further
+            anchorEntity.position = simd_float3(0, -0.5, -1)
             anchorEntity.name = "BlueBoxAnchor"
             anchorEntity.addChild(newBlueBoxEntity)
 
@@ -166,36 +174,28 @@ struct ARViewContainer: UIViewRepresentable {
                                       simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
                                       simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
 
-            // Add the anchor to the scene
             uiView.scene.addAnchor(anchorEntity)
 
             print("Debug: Blue box added to scene")
 
-            // Update the binding
             DispatchQueue.main.async {
                 self.blueBoxAdded = true
             }
         } else {
-            // Update the orientation of the existing blue box
             if let existingBlueBoxAnchor = uiView.scene.anchors.first(where: { $0.name == "BlueBoxAnchor" }) {
                 existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
                                                     simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
                                                     simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
-
-                // Optional: Add any additional update logic for the existing blue box
-                // ...
             }
-        // Print statement for coordinates and initial alpha
-            print("Converted CoordinatesData: CoordinatesData(alpha: \(String(format: "%.3f", coordinatesData.alpha)), beta: \(String(format: "%.3f", coordinatesData.beta)), gamma: \(String(format: "%.3f", coordinatesData.gamma))), \(initialAlpha != nil ? "Initial Alpha: \(String(format: "%.3f", initialAlpha!))" : "Initial Alpha: nil")")
         }
+        print("Converted CoordinatesData: CoordinatesData(alpha: \(String(format: "%.3f", coordinatesData.alpha)), beta: \(String(format: "%.3f", coordinatesData.beta)), gamma: \(String(format: "%.3f", coordinatesData.gamma))), \(initialAlpha != nil ? "Initial Alpha: \(String(format: "%.3f", initialAlpha!))" : "Initial Alpha: nil")")
+        
+//        // Print statement for hitData
+//        if let hitData = self.hitData as? ChatMessageData {
+//            print("Received chat message: \(hitData.message)")
+//        }
     }
-
-
-
-    //^
 }
-
-
 
 class CustomARView: ARView {
     let focusSquare = FESquare()
@@ -237,7 +237,7 @@ struct PlacementButtonsView: View {
     @Binding var isPlacementEnabled: Bool
     @Binding var selectedModel: Model?
     @Binding var modelConfirmedForPlacement: Model?
-    @Binding var blueBoxAdded: Bool // Add the blueBoxAdded binding
+    @Binding var blueBoxAdded: Bool
 
     var body: some View {
         HStack {
