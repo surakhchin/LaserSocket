@@ -19,6 +19,7 @@ struct ContentView: View {
     @State private var socketData: Any?
     @State private var initialAlpha: Double?
     @State private var hitData: Any?
+    @State private var showTemporaryColor = false // Added state for temporary color change
 
     // Add the blueBoxAdded flag
     @State private var blueBoxAdded = false
@@ -43,7 +44,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded, socketData: self.$socketData, initialAlpha: self.$initialAlpha, hitData: self.$hitData)
+            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded, socketData: self.$socketData, initialAlpha: self.$initialAlpha, hitData: self.$hitData, showTemporaryColor: self.$showTemporaryColor) // Pass the showTemporaryColor binding
             if self.isPlacementEnabled {
                 PlacementButtonsView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement, blueBoxAdded: self.$blueBoxAdded)
             } else {
@@ -71,12 +72,22 @@ struct ContentView: View {
                     // Assuming "hit" is the only expected string in the array
                     DispatchQueue.main.async {
                         print("Received chat message: \(hitString)")
-                        self.hitData = ChatMessageData(message: hitString)
+
+                        print("Setting showTemporaryColor to true")
+                        self.showTemporaryColor = true // Set showTemporaryColor to true when hit message is received
+
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                            print("Setting showTemporaryColor to false")
+                            // Revert the color back to blue after 0.5 seconds (adjust the duration as needed)
+                            self.showTemporaryColor = false
+                        }
                     }
                 } else {
                     print("Received data is not a valid array or does not contain the expected string.")
                 }
             }
+
+
         }
     }
 }
@@ -113,6 +124,7 @@ struct ARViewContainer: UIViewRepresentable {
     @Binding var socketData: Any?
     @Binding var initialAlpha: Double?
     @Binding var hitData: Any?
+    @Binding var showTemporaryColor: Bool // Add the showTemporaryColor binding
 
     func makeUIView(context: Context) -> ARView {
         let arView = CustomARView(frame: .zero)
@@ -161,10 +173,12 @@ struct ARViewContainer: UIViewRepresentable {
         let beta = coordinatesData.beta * .pi / 180.0
         let gamma = -coordinatesData.gamma * .pi / 180.0 + .pi / 2
 
+        print("Show Temporary Color: \(showTemporaryColor)")
+        
         if !blueBoxAdded {
+            let color: SimpleMaterial.Color = self.showTemporaryColor ? .red : .blue
             let blueBox = MeshResource.generateBox(size: [0.02, 0.1, 0.2])
-            let newBlueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: .blue, isMetallic: false)])
-
+            let newBlueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: color, roughness: 0.0, isMetallic: false)])
             let anchorEntity = AnchorEntity()
             anchorEntity.position = simd_float3(0, -0.5, -1)
             anchorEntity.name = "BlueBoxAnchor"
@@ -174,6 +188,7 @@ struct ARViewContainer: UIViewRepresentable {
                                       simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
                                       simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
 
+            uiView.scene.anchors.removeAll()
             uiView.scene.addAnchor(anchorEntity)
 
             print("Debug: Blue box added to scene")
@@ -183,18 +198,28 @@ struct ARViewContainer: UIViewRepresentable {
             }
         } else {
             if let existingBlueBoxAnchor = uiView.scene.anchors.first(where: { $0.name == "BlueBoxAnchor" }) {
-                existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(alpha), axis: [0, 1, 0]) *
-                                                    simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
-                                                    simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
+                let color: SimpleMaterial.Color = self.showTemporaryColor ? .red : .blue
+                if let existingBlueBoxEntity = existingBlueBoxAnchor.children.first as? ModelEntity {
+                    existingBlueBoxEntity.model?.materials = [SimpleMaterial(color: color, roughness: 0.0, isMetallic: false)]
+                    if let initialAlpha = initialAlpha {
+                        let adjustedAlpha = (coordinatesData.alpha - initialAlpha) * .pi / 180.0
+                        let beta = coordinatesData.beta * .pi / 180.0
+                        let gamma = -coordinatesData.gamma * .pi / 180.0 + .pi / 2
+                        existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(adjustedAlpha), axis: [0, 1, 0]) *
+                                                            simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
+                                                            simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
+                    }
+                }
             }
         }
-        print("Converted CoordinatesData: CoordinatesData(alpha: \(String(format: "%.3f", coordinatesData.alpha)), beta: \(String(format: "%.3f", coordinatesData.beta)), gamma: \(String(format: "%.3f", coordinatesData.gamma))), \(initialAlpha != nil ? "Initial Alpha: \(String(format: "%.3f", initialAlpha!))" : "Initial Alpha: nil")")
+ 
         
-//        // Print statement for hitData
-//        if let hitData = self.hitData as? ChatMessageData {
-//            print("Received chat message: \(hitData.message)")
-//        }
+        //end of bluebox
+        print("Converted CoordinatesData: CoordinatesData(alpha: \(String(format: "%.3f", coordinatesData.alpha)), beta: \(String(format: "%.3f", coordinatesData.beta)), gamma: \(String(format: "%.3f", coordinatesData.gamma))), \(initialAlpha != nil ? "Initial Alpha: \(String(format: "%.3f", initialAlpha!))" : "Initial Alpha: nil")")
+
+        // ... (existing code)
     }
+
 }
 
 class CustomARView: ARView {
