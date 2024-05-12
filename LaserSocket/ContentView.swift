@@ -205,7 +205,7 @@ struct ARViewContainer: UIViewRepresentable {
                         let adjustedAlpha = (coordinatesData.alpha - initialAlpha) * .pi / 180.0
                         let beta = coordinatesData.beta * .pi / 180.0
                         let gamma = -coordinatesData.gamma * .pi / 180.0 + .pi / 2
-                        existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(adjustedAlpha), axis: [0, 1, 0]) *
+                        existingBlueBoxAnchor.orientation = simd_quatf(angle: Float(-adjustedAlpha), axis: [0, 1, 0]) *
                                                             simd_quatf(angle: Float(beta), axis: [1, 0, 0]) *
                                                             simd_quatf(angle: Float(gamma), axis: [0, 0, 1])
                     }
