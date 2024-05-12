@@ -176,9 +176,9 @@ struct ARViewContainer: UIViewRepresentable {
         print("Show Temporary Color: \(showTemporaryColor)")
         
         if !blueBoxAdded {
-            let color: SimpleMaterial.Color = self.showTemporaryColor ? .red : .blue
-            let blueBox = MeshResource.generateBox(size: [0.02, 0.1, 0.2])
-            let newBlueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: color, roughness: 0.0, isMetallic: false)])
+            let size: [Float] = self.showTemporaryColor ? [0.02, 0.15, 0.25] : [0.02, 0.1, 0.2]
+            let blueBox = MeshResource.generateBox(width: size[0], height: size[1], depth: size[2])
+            let newBlueBoxEntity = ModelEntity(mesh: blueBox, materials: [SimpleMaterial(color: self.showTemporaryColor ? .red : .blue, roughness: 0.0, isMetallic: false)])
             let anchorEntity = AnchorEntity()
             anchorEntity.position = simd_float3(0, -0.5, -1)
             anchorEntity.name = "BlueBoxAnchor"
@@ -198,9 +198,11 @@ struct ARViewContainer: UIViewRepresentable {
             }
         } else {
             if let existingBlueBoxAnchor = uiView.scene.anchors.first(where: { $0.name == "BlueBoxAnchor" }) {
-                let color: SimpleMaterial.Color = self.showTemporaryColor ? .red : .blue
                 if let existingBlueBoxEntity = existingBlueBoxAnchor.children.first as? ModelEntity {
-                    existingBlueBoxEntity.model?.materials = [SimpleMaterial(color: color, roughness: 0.0, isMetallic: false)]
+                    let size: [Float] = self.showTemporaryColor ? [0.02, 0.15, 0.25] : [0.02, 0.1, 0.2]
+                    let blueBox = MeshResource.generateBox(width: size[0], height: size[1], depth: size[2])
+                    existingBlueBoxEntity.model?.mesh = blueBox
+                    existingBlueBoxEntity.model?.materials = [SimpleMaterial(color: self.showTemporaryColor ? .red : .blue, roughness: 0.0, isMetallic: false)]
                     if let initialAlpha = initialAlpha {
                         let adjustedAlpha = (coordinatesData.alpha - initialAlpha) * .pi / 180.0
                         let beta = coordinatesData.beta * .pi / 180.0
@@ -309,7 +311,7 @@ struct ModelPickerView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 30) {
-                ForEach(0 ..< self.models.count) { index in
+                ForEach(0..<self.models.count) { index in
                     Button(action: {
                         print("DEBUG: selected model with name: \(self.models[index].modelName)")
 
